@@ -12,11 +12,15 @@ For more information, please check out the [sample app](https://github.com/dbof1
 
 Basic setup:
 
-~~~ kotlin
- val encoder = MP4Encoder()
-     encoder.setFrameRate(20)
-     encoder.setOutputFilePath(exportedFile.path)
-     encoder.setOutputSize(ivRecord.width, ivRecord.width)
+~~~ java
+ MP4Encoder encoder = new MP4Encoder();
+ encoder.setFrameRate(20); //frames per second
+ encoder.setOutputFilePath(someFilePath); //output video file path. something like blablabla/test.mp4
+ encoder.setOutputSize(1280, 720); //frame width and height
+ encoder.startEncode();
+ for (Bitmap item : bitmaps) //where bitmaps is your bitmap collection
+   encoder.addFrame(item);
+ encoder.notifyLastFrameAdded();
 ~~~
 
 API:
