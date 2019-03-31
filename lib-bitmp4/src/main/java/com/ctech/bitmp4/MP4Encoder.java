@@ -27,7 +27,6 @@ import timber.log.Timber;
 public class MP4Encoder extends Encoder {
 
   private static final int BIT_RATE = 2000000;
-  private static final int FRAME_RATE = 20;
   private static final int I_FRAME_INTERVAL = 5;
   private static final long ONE_SEC = 1000000;
   private static final String TAG = MP4Encoder.class.getSimpleName();
@@ -61,7 +60,7 @@ public class MP4Encoder extends Encoder {
       videoCodec = MediaCodec.createEncoderByType(MIMETYPE_VIDEO_AVC);
       MediaFormat videoFormat = MediaFormat.createVideoFormat(MIMETYPE_VIDEO_AVC, width, height);
       videoFormat.setInteger(KEY_BIT_RATE, BIT_RATE);
-      videoFormat.setInteger(KEY_FRAME_RATE, FRAME_RATE);
+      videoFormat.setInteger(KEY_FRAME_RATE, getFrameRate());
       videoFormat.setInteger(KEY_I_FRAME_INTERVAL, I_FRAME_INTERVAL);
       videoFormat.setInteger(KEY_COLOR_FORMAT, COLOR_FormatYUV420SemiPlanar);
       videoCodec.configure(videoFormat, null, null, CONFIGURE_FLAG_ENCODE);

@@ -17,7 +17,7 @@ public abstract class Encoder {
   private EncodeFinishListener encodeFinishListener;
   private EncodingOptions encodingOptions;
   private Thread encodingThread;
-  private int frameDelay = 50;
+  private int frameRate = 20;
   private int height;
   protected String outputFilePath = null;
   private int state = STATE_IDLE;
@@ -95,11 +95,8 @@ public abstract class Encoder {
     this.height = height;
   }
 
-  /**
-   * delay in ms
-   */
-  public void setFrameDelay(int delay) {
-    frameDelay = delay;
+  public void setFrameRate(int fps) {
+    frameRate = fps;
   }
 
   public void startEncode() {
@@ -156,8 +153,8 @@ public abstract class Encoder {
 
   protected abstract void onStop();
 
-  protected int getFrameDelay() {
-    return frameDelay;
+  protected int getFrameRate() {
+    return frameRate;
   }
 
   protected int getHeight() {

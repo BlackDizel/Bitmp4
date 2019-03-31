@@ -36,7 +36,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         encoder = MP4Encoder()
-        encoder.setFrameDelay(50)
+        encoder.setFrameRate(20)
         encoder.setOutputFilePath(exportedFile.path)
         Glide.with(this)
                 .asGif()
