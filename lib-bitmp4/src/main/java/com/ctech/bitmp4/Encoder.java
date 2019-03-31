@@ -26,7 +26,6 @@ public abstract class Encoder {
 
   private Runnable mRunnableEncoder = new Runnable() {
     public void run() {
-      int frameNum = 0;
       while (true) {
         if (state != STATE_RECORDING && bitmapQueue.size() <= 0) {
           break;
@@ -44,9 +43,6 @@ public abstract class Encoder {
               Timber.e(e);
             }
             bitmap.recycle();
-
-            notifyFrameProcessed(frameNum);
-            ++frameNum;
           }
           if (state == STATE_RECORDING_UNTIL_LAST_FRAME && bitmapQueue.size() == 0) {
             Timber.d("Last frame added");
@@ -126,7 +122,7 @@ public abstract class Encoder {
     }
   }
 
-  private void notifyFrameProcessed(int frameNum) {
+  protected void notifyFrameProcessed(int frameNum) {
     if (encodeFrameListener != null)
       encodeFrameListener.onFrameEncoded(frameNum);
   }
