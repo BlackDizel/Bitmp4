@@ -15,6 +15,7 @@ public abstract class Encoder {
   protected static final int STATE_RECORDING_UNTIL_LAST_FRAME = 2;
   private List<Bitmap> bitmapQueue;
   private EncodeFinishListener encodeFinishListener;
+  private EncodeFrameListener encodeFrameListener;
   private EncodingOptions encodingOptions;
   private Thread encodingThread;
   private int frameRate = 20;
@@ -25,6 +26,7 @@ public abstract class Encoder {
 
   private Runnable mRunnableEncoder = new Runnable() {
     public void run() {
+      int frameNum = 0;
       while (true) {
         if (state != STATE_RECORDING && bitmapQueue.size() <= 0) {
           break;
@@ -42,6 +44,9 @@ public abstract class Encoder {
               Timber.e(e);
             }
             bitmap.recycle();
+
+            notifyFrameProcessed(frameNum);
+            ++frameNum;
           }
           if (state == STATE_RECORDING_UNTIL_LAST_FRAME && bitmapQueue.size() == 0) {
             Timber.d("Last frame added");
@@ -60,6 +65,10 @@ public abstract class Encoder {
     void onEncodeFinished();
   }
 
+
+ public interface EncodeFrameListener {
+    void onFrameEncoded(int index);
+  }
 
 
   public Encoder() {
@@ -114,6 +123,11 @@ public abstract class Encoder {
     }
   }
 
+  private void notifyFrameProcessed(int frameNum) {
+    if (encodeFrameListener != null)
+      encodeFrameListener.onFrameEncoded(frameNum);
+  }
+
   public void stopEncode() {
     if (encodingThread != null && encodingThread.isAlive()) {
       encodingThread.interrupt();
@@ -131,6 +145,10 @@ public abstract class Encoder {
 
   public void setEncodeFinishListener(EncodeFinishListener listener) {
     encodeFinishListener = listener;
+  }
+
+  public void setEncodeFrameListener(EncodeFrameListener listener) {
+    encodeFrameListener = listener;
   }
 
   /**
