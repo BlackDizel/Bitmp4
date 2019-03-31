@@ -1,6 +1,9 @@
 # Bitmp4
 
-[![Release](https://jitpack.io/v/dbof10/Bitmp4.svg)](https://jitpack.io/#dbof10/Bitmp4)
+[![Release](https://jitpack.io/v/blackdizel/Bitmp4.svg)](https://jitpack.io/#blackdizel/Bitmp4)
+
+Based on https://github.com/dbof10/Bitmp4
+
 
 Usage
 ---
@@ -11,7 +14,7 @@ Basic setup:
 
 ~~~ kotlin
  val encoder = MP4Encoder()
-     encoder.setFrameDelay(50)
+     encoder.setFrameRate(20)
      encoder.setOutputFilePath(exportedFile.path)
      encoder.setOutputSize(ivRecord.width, ivRecord.width)
 ~~~
@@ -24,6 +27,10 @@ API:
  stopExport()
  
  addFrame(bitmap) //called intervally
+ 
+ setEncodeFinishListener()
+ 
+ setEncodeFrameListener()
 ~~~
 
 Download
@@ -44,6 +51,7 @@ Apps using Bitmp4
 ---
 [Live Message](https://play.google.com/store/apps/details?id=com.ctech.livemessage)
 
+[BC Stop Motion animation](https://play.google.com/store/apps/details?id=org.byters.bcphotoanimations)
 
 License
 -------
