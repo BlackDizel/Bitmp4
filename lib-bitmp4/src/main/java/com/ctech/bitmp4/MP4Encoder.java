@@ -205,6 +205,7 @@ public class MP4Encoder extends Encoder {
           mediaMuxer.writeSampleData(videoTrackIndex, encodedData, bufferInfo);
         }
         videoCodec.releaseOutputBuffer(encoderStatus, false);
+        notifyFrameProcessed(encodedFrameCount);
         encodedFrameCount++;
       }
       Timber.i("encoderOutputBuffer " + encoderStatus + " was null");
