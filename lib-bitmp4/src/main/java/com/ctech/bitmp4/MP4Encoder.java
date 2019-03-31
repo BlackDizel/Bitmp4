@@ -211,8 +211,8 @@ public class MP4Encoder extends Encoder {
     }
   }
 
-  private static long getPresentationTimeUsec(int frameIndex) {
-    return (((long) frameIndex) * ONE_SEC) / 20;
+  private long getPresentationTimeUsec(int frameIndex) {
+    return (((long) frameIndex) * ONE_SEC) / getFrameRate();
   }
 
   private byte[] getNV12(int inputWidth, int inputHeight, Bitmap scaled) {
